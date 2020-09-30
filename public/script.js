@@ -1,11 +1,7 @@
 // peerjs --port 3001
-const socket = io('/')
+const socket = io()
 const videoGrid = document.getElementById('video-grid')
-const myPeer = new Peer(undefined, {
-    // path: '/peerjs',
-    host: '/',
-    port: '443'
-})
+const myPeer = new Peer();
 
 const myVideo = document.createElement('video')
 myVideo.muted = true
@@ -28,19 +24,22 @@ navigator.mediaDevices.getUserMedia({
         })
     })
     socket.on('user-connected', userId => {
+        alert("New user!");
         connectToNewUser(userId, stream)
     })
 
-    const text = $('input')
+    let text = $('input')
 
-    $('html').keydown((e) => {
+    $('html').keydown(function(e) {
+        let value = text.val();
         if(e.which == 13 && text.val().length !== 0) {
-            socket.emit('message', text.val());
+            console.log(value)
+            socket.emit('message', value);
             text.val('')
         }
-    })
+    });
 
-    socket.on('create-message', message => {
+    socket.on('createMessage', message => {
         $('.messages').append(`<li class="message"><b>user</b><br/>${message}</li>`)
         scrollToBottom()
     })

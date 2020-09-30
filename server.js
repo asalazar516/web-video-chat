@@ -8,10 +8,10 @@ const { send } = require('process');
 
 let USER_LIST = {};
 
-const { ExpressPeerServer } = require('peer')
-const peerServer = ExpressPeerServer(server, {
-    debug: true
-})
+// const { ExpressPeerServer } = require('peer')
+// const peerServer = ExpressPeerServer(server, {
+//     debug: true
+// })
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
